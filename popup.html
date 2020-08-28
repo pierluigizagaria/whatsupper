@@ -1,95 +1,19 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka+One">
+    <link rel="stylesheet" href="css/popup.css">
     <script src="js/popup.js"></script>
-    <style>
-        body {
-            margin: 15px;
-        }
-        #text {
-            font-family: 'Fredoka One', serif;
-            text-align: center;
-            font-size: 30px;
-            margin: auto;
-        }
-        .container {
-            width: 170px;
-            height: 80px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-        }
-        .text-wrap {
-            height: 37px;
-            width: auto;
-        }
-        .switch {
-            position: relative;
-            display: block;
-            margin: 0 auto 0 auto;
-            width: 60px;
-            height: 34px;
-        }
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            -webkit-transition: .4s;
-            transition: .4s;
-        }
-        input:checked+.slider {
-            background-color: #45d354;
-        }
-        input:focus+.slider {
-            box-shadow: 0 0 1px #45d354;
-        }
-        input:checked+.slider:before {
-            -webkit-transform: translateX(26px);
-            -ms-transform: translateX(26px);
-            transform: translateX(26px);
-        }
-        .slider.round {
-            border-radius: 34px;
-        }
-        .slider.round:before {
-            border-radius: 50%;
-        }
-    </style>
 </head>
-
 <body>
     <section class="container">
         <div class="text-wrap">
             <h1 id="text"></h1>
         </div>
         <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" checked>
             <span class="slider round"></span>
         </label>
     </section>
 </body>
-
 </html>

@@ -1,19 +1,25 @@
-let hook = () => {
+function hook() {
     var text
     let input = $("footer").find("._3FRCZ")[0]
     $(input).addClass("whatsupper-is-here-for-you");
     $(input).on('DOMSubtreeModified', () => {
-        if ($(input).text().length == 1 && $(input).text() != text) {
-            let range = document.createRange()
-            let sel = window.getSelection()
-            text = $(input).text().toUpperCase()
-            $(input).text(text);
-            range.setStart(input.childNodes[0], 1)
-            range.collapse(true)
-            sel.removeAllRanges()
-            sel.addRange(range)
-        }
+        chrome.storage.sync.get(['enabled'], (options) => {
+            if (options.enabled && $(input).text().length == 1 && $(input).text() != text) {
+                text = $(input).text().toUpperCase()
+                $(input).text(text);
+                setCaret(input, 1)
+            }
+        });
     });
+}
+
+function setCaret(input, index) {
+    let range = document.createRange()
+    let sel = window.getSelection()
+    range.setStart(input.childNodes[0], index)
+    range.collapse(true)
+    sel.removeAllRanges()
+    sel.addRange(range)
 }
 
 let findPane = async () => {
