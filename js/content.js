@@ -1,3 +1,5 @@
+chrome.runtime.sendMessage({ type: 'showPageAction' });
+
 function hook() {
     var text
     let input = $("footer").find("._3FRCZ")[0]
