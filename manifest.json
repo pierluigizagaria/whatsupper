@@ -1,11 +1,11 @@
 {
   "name": "WhatsUpper?",
-  "version": "1.0",
+  "version": "1.1.1",
   "description": "Auto-capitalize the first letter in WhatsApp's chats.",
   "manifest_version": 2,
   "applications": {
   	"gecko": {
-  		"id": "whatsupper"
+  		"id": "whatsupper@pierluigizagaria"
   	}
   },
   "icons": {
@@ -24,7 +24,7 @@
   },
   "background": {
     "scripts": ["js/background.js"],
-    "persistent": false
+    "persistent": true
   },
   "content_scripts": [
     {
