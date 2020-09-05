@@ -1,30 +1,32 @@
 chrome.runtime.sendMessage({ type: 'showPageAction' });
 
-function hook() {
-    var text
-    let input = $("footer").find("._3FRCZ")[0]
-    $(input).addClass("whatsupper-is-here-for-you");
-    $(input).on('DOMSubtreeModified', () => {
-        chrome.storage.sync.get(['enabled'], (options) => {
-            if (options.enabled && $(input).text().length == 1 && $(input).text() != text) {
-                text = $(input).text().toUpperCase()
-                $(input).text(text);
-                setCaret(input, 1)
-            }
-        });
+var hook = function() {
+    let input = document.querySelector('footer').querySelector('._3FRCZ')
+    let observer = new MutationObserver(keyTyped);
+    input.classList.add('whatsupper-is-here-for-you');
+    observer.observe(input, { subtree: true, characterDataOldValue: true});
+}
+
+var keyTyped = function(mutation){
+    chrome.storage.sync.get(['enabled'], (options) => {
+        let node = mutation[0].target
+        if (options.enabled && mutation[0].oldValue == '') {
+            node.nodeValue = node.nodeValue.charAt(0).toUpperCase() + node.nodeValue.slice(1)
+            setCaret(node, node.nodeValue.length)
+        }
     });
 }
 
-function setCaret(input, index) {
+var setCaret = function(target, position) {
     let range = document.createRange()
     let sel = window.getSelection()
-    range.setStart(input.childNodes[0], index)
+    range.setStart(target, position)
     range.collapse(true)
     sel.removeAllRanges()
     sel.addRange(range)
 }
 
-let findPane = async () => {
+var findPane = async function() {
     let pane
     let loop = setInterval(() => {
         if (pane = $('#pane-side')[0]) {
