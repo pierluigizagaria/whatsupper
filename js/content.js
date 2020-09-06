@@ -29,8 +29,8 @@ var setCaret = function(target, position) {
 var findPane = async function() {
     let pane
     let loop = setInterval(() => {
-        if (pane = $('#pane-side')[0]) {
-            $(pane).on('click', hook);
+        if (pane = document.querySelector('#pane-side')){
+            pane.addEventListener("click", hook)
             clearInterval(loop);
         }
     }, 125);
