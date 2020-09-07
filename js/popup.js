@@ -1,4 +1,4 @@
-let texts = ["what's up?","What's up?"]
+let texts = ["<span class='wavy'>w</span>hat's up?","What's up?"]
 
 var typewriter = new Typewriter(document.getElementById('text'));
 

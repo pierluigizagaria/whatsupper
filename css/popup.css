@@ -84,13 +84,16 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-.text-cursor {
-    border-right: .05em solid;
-    animation: caret 1s steps(1) infinite;
+.wavy {
+    display: inline-block;
+    position: relative;
 }
-  
-@keyframes caret {
-    50% {
-        border-color: transparent;
-    }
+
+.wavy:before {
+    content: "~";
+    color: red;
+    width: 100%;
+    position: absolute;
+    top: 12px;
+    overflow: hidden;
 }
