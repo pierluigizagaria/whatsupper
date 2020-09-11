@@ -1,21 +1,18 @@
 chrome.runtime.sendMessage({ type: 'showPageAction' });
+chrome.runtime.onMessage.addListener(message => {
+    if (message.type == 'changeState') enabled = message.enabled
+});
 
-var hook = function() {
-    let input = document.querySelector('footer').querySelector('._3FRCZ')
-    let observer = new MutationObserver(keyTyped);
-    input.classList.add('whatsupper-is-here-for-you');
-    observer.observe(input, { subtree: true, characterDataOldValue: true});
-}
+let enabled 
 
-var keyTyped = function(mutation){
-    chrome.storage.sync.get(['enabled'], (options) => {
-        let node = mutation[0].target
-        if (options.enabled && mutation[0].oldValue == '') {
-            node.nodeValue = node.nodeValue.charAt(0).toUpperCase() + node.nodeValue.slice(1)
-            setCaret(node, node.nodeValue.length)
-        }
-    });
-}
+document.addEventListener('input', (event) => {
+    let input = event.target
+    let text = input.innerText
+    if (enabled && event.inputType == 'insertText' && text.replace(/\s/g, '').length == 1) {
+        input.innerText = text.charAt(0).toUpperCase() + text.slice(1);
+        setCaret(input, 1)
+    }
+}, {passive: true})
 
 var setCaret = function(target, position) {
     let range = document.createRange()
@@ -25,15 +22,3 @@ var setCaret = function(target, position) {
     sel.removeAllRanges()
     sel.addRange(range)
 }
-
-var findPane = async function() {
-    let pane
-    let loop = setInterval(() => {
-        if (pane = document.querySelector('#pane-side')){
-            pane.addEventListener("click", hook)
-            clearInterval(loop);
-        }
-    }, 125);
-}
-
-findPane()

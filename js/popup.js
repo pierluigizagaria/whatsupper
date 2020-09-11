@@ -4,8 +4,11 @@ var typewriter = new Typewriter(document.getElementById('text'));
 
 function toggle() {
     let state = document.querySelector("input").checked
-    chrome.storage.sync.set({enabled: state})
     showText(state)
+    chrome.storage.sync.set({enabled: state})
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => { 
+        chrome.tabs.sendMessage(tabs[0].id, { type: 'changeState', enabled: state })
+    });
 }
 
 function showText(state){
