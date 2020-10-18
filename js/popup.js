@@ -12,7 +12,7 @@ function toggle() {
 }
 
 function showText(state){
-    new Typewriter(document.getElementById('text'), {delay: 50})
+    new Typewriter(document.getElementById('text'), {delay: 40})
         .typeString(state ? texts[1] : texts[0])
         .start()
 }

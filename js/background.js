@@ -5,12 +5,10 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender) => {
-    if (typeof message === 'object' && message.type === 'showPageAction') {
+    if (typeof message === 'object' && message.type === 'wake') {
         chrome.pageAction.show(sender.tab.id);
         chrome.storage.sync.get(['enabled'], (options) => {
-            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                chrome.tabs.sendMessage(tabs[0].id, { type: 'changeState', enabled: options.enabled })
-            });
+            chrome.tabs.sendMessage(sender.tab.id, { type: 'changeState', enabled: options.enabled })
         }) 
     } 
 });

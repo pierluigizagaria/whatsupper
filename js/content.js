@@ -1,4 +1,4 @@
-chrome.runtime.sendMessage({ type: 'showPageAction' });
+chrome.runtime.sendMessage({ type: 'wake' });
 chrome.runtime.onMessage.addListener(message => {
     if (message.type == 'changeState') enabled = message.enabled
 });
