@@ -1,20 +1,19 @@
 {
   "name": "WhatsUpper?",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Auto-capitalize the first letter in WhatsApp's chats.",
-  "manifest_version": 2,
-  "applications": {
-  	"gecko": {
-  		"id": "whatsupper@pierluigizagaria"
-  	}
-  },
+  "manifest_version": 3,
   "icons": {
     "16": "images/icon-16.png",
     "48": "images/icon-48.png",
     "128": "images/icon-128.png"
   },
-  "permissions": ["storage"],
-  "page_action": {
+  "permissions": [
+    "activeTab",
+    "storage",
+    "declarativeContent"
+  ],
+  "action": {
     "default_icon": {
       "16": "images/icon-16.png",
       "48": "images/icon-48.png",
@@ -23,14 +22,18 @@
     "default_popup": "popup.html"
   },
   "background": {
-    "scripts": ["js/background.js"],
-    "persistent": true
+    "service_worker": "js/background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
-      "matches": ["https://web.whatsapp.com/*"],
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
       "run_at": "document_idle",
-      "js": ["js/content.js"]
+      "js": [
+        "js/content.js"
+      ]
     }
   ]
 }
